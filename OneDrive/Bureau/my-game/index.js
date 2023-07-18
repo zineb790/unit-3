@@ -1,0 +1,1 @@
+const playerText= document.querySelector("#playertex")
