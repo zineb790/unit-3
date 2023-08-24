@@ -4,7 +4,7 @@ const app = express();
 
 app.get('/', (req,
     res) => {
-    res.send('Welcome to the Pokemon App!')
+    res.send("<h1>Welcome to the Pokemon App!</h1>")
 });
 
 
