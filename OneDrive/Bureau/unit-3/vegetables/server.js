@@ -1,50 +1,72 @@
-//Imports
+require('dotenv').config();
 const express = require('express');
 const app = express();
-
-//Schema/Model/Data for Veggies
 const vegetables = require('./models/vegetables.js');
+const mongoose = require('mongoose');
+const Vegetable = require('./models/Vegetable');
 
-//View Engine to View JSX in browser, because we aren't using React yet.
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
-
 app.use(express.urlencoded({ extended: false }));
+
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+mongoose.connection.once('open', () => {
+  console.log('connected to mongo')
+})
 
 //Middleware, runs every time a route is accessed
 app.use((req, res, next) => {
   console.log('I run for all routes!');
   next();
 });
-
-//root
-app.get('/', (req, res) => {
-   res.send("<h1>hello swe!</h1>")
-});
-
-// vegetables index route
+//Induces
+//Index
 app.get('/vegetables', (req, res) => {
-    res.render("Index",{ vegetables: vegetables });
+  res.send(vegetables);
+  Vegetable.find({})
+    .then((allVegetables) => {
+      console.log(allVegetables);
+      res.render('Index', { vegetables: allVegetables });
+    })
+    .catch(error => {
+      console.error(error)
+    })
 });
 
-//Route to get New vegetables './views/vegetables/New.jsx'
+
+//New
 app.get('/vegetables/new', (req, res) => {
     res.render('New');
 });
 
-//Route to create/post veggies
+//Delete
+//Update
+
+//Create
 app.post('/vegetables', (req, res)=>{
     if(req.body.readyToEat === 'on'){ 
         req.body.readyToEat = true;
     } else { 
         req.body.readyToEat = false;
     }
-    vegetables.push(req.body);
-    res.redirect('/vegetables'); 
+    // vegetables.push(req.body);
+    // res.redirect('/vegetables'); 
+    Vegetable.create(req.body)
+    .then((createdVegetable) => {
+      res.send(createdVegetable)
+    })
+    .catch(error => {
+      console.error(error)
+    })
     });
 
 
-// show route
+//Edit
+
+//Show
 app.get('/vegetables/:indexOfVegetablesArray', (req, res) => {
     // res.send(vegetables[req.params.indexOfVegetablesArray]);
     res.render('Show',{
@@ -52,6 +74,15 @@ app.get('/vegetables/:indexOfVegetablesArray', (req, res) => {
   });
 
 });
+
+
+
+//Root
+app.get('/', (req, res) => {
+   res.send("<h1>hello swe!</h1>")
+});
+
+
 
 
 
