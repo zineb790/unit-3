@@ -17,6 +17,10 @@ app.get('/pokemon', (req, res) => {
     res.render("Index", {pokemon: pokemon});
 });
 
+app.get('/pokemon/:indexOfPokemonArray', (req, res) => {
+    res.send(pokemon[req.params.indexOfPokemonArray]);
+    }); 
+
 
 
 app.listen(3000, () => {
