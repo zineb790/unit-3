@@ -7,19 +7,24 @@ app.engine('jsx', require('express-react-views').createEngine());
 app.use(express.urlencoded({ extended: false }));
 
 
-
+//Root
 app.get('/', (req,
     res) => {
     res.send("<h1>Welcome to the Pokemon App!</h1>")
 });
 
+//Index
 app.get('/pokemon', (req, res) => {
-    res.render("Index", {pokemon: pokemon});
+    res.render("Index", {pokemon});
 });
 
+//Show
 app.get('/pokemon/:indexOfPokemonArray', (req, res) => {
-    res.send(pokemon[req.params.indexOfPokemonArray]);
-    }); 
+    // res.send(pokemon[req.params.indexOfPokemonArray]);
+     res.render('Show',{pokemon:[req.params.indexOfPokemonArray]});
+}); 
+    
+
 
 
 
