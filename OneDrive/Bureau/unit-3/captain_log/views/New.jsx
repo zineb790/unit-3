@@ -16,8 +16,9 @@ class New extends React.Component {
                   <br></br><br></br>
             
              <label htmlFor="shipIsBroken">Ship is Broken:</label>
-                  <input type="checkbox" id="shipIsBroken" name="shipIsBroken" />
+                  <input type="checkbox" id="shipIsBroken" name="shipIsBroken" value={true}/>
                   <br></br><br></br>
+                  
             
             <input type="submit" value="Submit" />
             
