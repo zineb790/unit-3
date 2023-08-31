@@ -1,4 +1,6 @@
-const { Schema, model } = require('mongoose');
+const mongoose = require('./connection');
+
+const { Schema, model } = mongoose
 
 // make fruits schema
 const snacksSchema = new Schema({
