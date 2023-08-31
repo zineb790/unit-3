@@ -1,9 +1,10 @@
 const React = require('react');
+ const DefaultLayout = require('./layout/Default');
 
 class New extends React.Component {
   render() {
     return (
-        <div>
+         <DefaultLayout title="Fruits New Page">
             <h1>New Fruit page</h1>
             {/* NOTE: action will be the route, method will be the HTTP verb */}
             <form action="/fruits" method="POST">
@@ -12,7 +13,7 @@ class New extends React.Component {
               Is Ready To Eat: <input type="checkbox" name="readyToEat" /><br/>
               <input type="submit" name="" value="Create Fruit"/>
             </form>
-        </div>
+         </DefaultLayout>
         );
   }
 }
