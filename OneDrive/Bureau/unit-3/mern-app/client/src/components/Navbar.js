@@ -3,7 +3,7 @@ import { useCookies } from 'react-cookie';
 import {useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-    const [cookies, setCookies] = useCookies(["access-token"]);
+    const [cookies, setCookies] = useCookies(["access_token"]);
     const navigate = useNavigate();
     
     const logout = () => {

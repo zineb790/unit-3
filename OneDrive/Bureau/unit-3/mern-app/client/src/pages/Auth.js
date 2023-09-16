@@ -1,6 +1,6 @@
-import { useState } from "react";
+import  React, { useState } from "react";
 import axios from "axios";
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
 export default function Auth () {
@@ -12,7 +12,7 @@ export default function Auth () {
     )
 }
 const Login = () => {
-  // const [_, setCookies] = useCookies(["access_token"]);
+  const [_, setCookies] = useCookies(["access_token"]);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,7 +28,7 @@ const Login = () => {
         password,
       });
 
-      // setCookies("access_token", result.data.token);
+      setCookies("access_token", result.data.token);
       window.localStorage.setItem("userID", result.data.userID);
       navigate("/");
     } catch (error) {

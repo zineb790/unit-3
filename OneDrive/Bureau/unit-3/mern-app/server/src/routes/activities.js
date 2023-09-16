@@ -5,6 +5,7 @@ import { UserModel } from "../models/Users.js";
 
 const router = express.Router();
 
+//route 1 
 router.get("/", async (req, res) => {
   try {
     const response = await ActivityModel.find({});
@@ -13,6 +14,7 @@ router.get("/", async (req, res) => {
     res.json(err);
   }
 });
+
 
 // Create a new activity
 router.post("/",  async (req, res) => {
@@ -25,12 +27,13 @@ router.post("/",  async (req, res) => {
   }
 });
 
+
 router.put("/",  async (req, res) => {
   // {userId ,activityId}
   try {
      const activity = await ActivityModel.findById(req.body.activityID);
-  const user = await UserModel.findById(req.body.userID);
-  user.savedActivities.push(activity);
+     const user = await UserModel.findById(req.body.userID);
+    user.savedActivities.push(activity);
     await user.save();
    
     res.json({savedActivities:user.savedActivities});
@@ -40,7 +43,6 @@ router.put("/",  async (req, res) => {
 });
 
 router.get("/savedActivities/ids/:userID", async (req, res) => {
-  
   try {
     const user = await UserModel.findById(req.params.userID);
     res.json({ savedActivities: user?.savedActivities });

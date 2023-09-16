@@ -7,22 +7,44 @@ import { useGetUserID } from "../hooks/useGetUserID.js";
 export default function Home() {
 
     const [activities, setActivities] = useState([]);
+    const [savedActivities, setSavedActivities] = useState([]);
+    
     const userID = useGetUserID();
 
     useEffect(() => {
+
         const fetchActivities = async () => {
+             try {
+        const response = await axios.get("http://localhost:3001/activities");
+        setActivities(response.data);
+      } catch (err) {
+        console.log(err);
+            }
+        };
+
+        const fetchSavedActivities = async () => {
             try {
-                const response = await axios.get("http://localhost:3001/activities");
-                setActivities(response.data)
+                const response = await axios.get(
+                    `http://localhost:3001/activities/savedActivities/ids/${userID}`);
+                setSavedActivities(response.data.savedActivities);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+            fetchActivities();
+            fetchSavedActivities();
+       
+    },[userID]);
+
+    const saveActivity = async (activityID) => {
+         try {
+                const response = await axios.put("http://localhost:3001/activities",{userID,activityID,});
+                setSavedActivities(response.data.savedActivities);
                
             } catch (err) {
                 console.error(err)
             }
-        };
-        fetchActivities();
-       
-    }, [userID]);
-
+    };
     return (
         <div>
             <h1>Activities</h1>
@@ -46,3 +68,4 @@ export default function Home() {
     )
 }
 
+ 
