@@ -51,10 +51,10 @@ router.get("/savedActivities/ids/:userID", async (req, res) => {
   }
 });
 
-router.get("/savedActivities", async (req, res) => {
+router.get("/savedActivities/:userID", async (req, res) => {
   
   try {
-    const user = await UserModel.findById(req.body.userID);
+    const user = await UserModel.findById(req.params.userID);
     const savedActivities=await ActivityModel.find({_id:{$in :user.savedActivities},})
     res.json({ savedActivities });
   } catch (err) {

@@ -45,6 +45,7 @@ export default function Home() {
                 console.error(err)
             }
     };
+    const isActivitySaved=(id)=>savedActivities.includes(id)
     return (
         <div>
             <h1>Activities</h1>
@@ -53,7 +54,9 @@ export default function Home() {
                     <li key={activity._id}>
                         <div>
                             <h2>{activity.name}</h2>
-                            <button >save</button>
+                            <button onClick={()=>saveActivity(activity._id)} disabled={isActivitySaved(activity._id)}>{isActivitySaved(activity._id)?"saved":"save"}</button>
+                            <button>delete</button>
+                            <button>update</button>
                         </div>
                         <div>
                             <p>{activity.description}</p>

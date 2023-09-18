@@ -20,11 +20,11 @@ const ActivitySchema = new mongoose.Schema({
         type: Number,
         required:true
     },
-    // userOwner: {
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref: "users",
-    //     required:true,
-    // }
+    userOwner: {
+        type:mongoose.Schema.Types.ObjectId,
+        ref: "users",
+        // required:true,
+    }
 });
 
 
