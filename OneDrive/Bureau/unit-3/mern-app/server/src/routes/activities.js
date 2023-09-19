@@ -62,6 +62,18 @@ router.get("/savedActivities/:userID", async (req, res) => {
   }
 });
 
+//delete route
+router.delete("/ids/:activityID", async (req, res) => {
+  try {
+    const deletedActivities = await ActivityModel.findByIdAndDelete(req.params.activityID);
+    res.json({deletedActivities});
+  } catch (err) {
+    res.json(err)
+  }
+});
+
+
+
 
 
 export { router as activitiesRouter };

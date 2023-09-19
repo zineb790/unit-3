@@ -8,6 +8,7 @@ export default function Home() {
 
     const [activities, setActivities] = useState([]);
     const [savedActivities, setSavedActivities] = useState([]);
+    const [deleteActivities, setDeleteActivities] = useState([]);
     
     const userID = useGetUserID();
 
@@ -31,15 +32,36 @@ export default function Home() {
                 console.log(err);
             }
         }
-            fetchActivities();
-            fetchSavedActivities();
+        //delete
+        // const fetchDeleteActivities = async () => {
+        //     try {
+        //         const response = await axios.delete(
+        //             `http://localhost:3001/activities/deleteActivities/ids/${activityID}`);
+        //         setDeleteActivities(response.data.deleteActivities);
+        //     } catch (err) {
+        //         console.log(err);
+        //     }
+        // }
+        fetchActivities();
+        fetchSavedActivities();
+        // fetchDeleteActivities();
        
     },[userID]);
 
     const saveActivity = async (activityID) => {
          try {
-                const response = await axios.put("http://localhost:3001/activities",{userID,activityID,});
+                const response = await axios.put("http://localhost:3001/activities",{userID,activityID});
                 setSavedActivities(response.data.savedActivities);
+               
+            } catch (err) {
+                console.error(err)
+            }
+    };
+
+    const deleteActivity = async (activityID) => {
+         try {
+                const response = await axios.delete("http://localhost:3001/activities/ids",{activityID});
+                setDeleteActivities(response.data.deleteActivities);
                
             } catch (err) {
                 console.error(err)
@@ -48,21 +70,25 @@ export default function Home() {
     const isActivitySaved=(id)=>savedActivities.includes(id)
     return (
         <div>
-            <h1>Activities</h1>
+            <h2>Recently Posted..</h2>
             <ul>
                 {activities.map((activity) =>(
                     <li key={activity._id}>
                         <div>
-                            <h2>{activity.name}</h2>
-                            <button onClick={()=>saveActivity(activity._id)} disabled={isActivitySaved(activity._id)}>{isActivitySaved(activity._id)?"saved":"save"}</button>
-                            <button>delete</button>
-                            <button>update</button>
+                            <h3>Title : {activity.name}</h3>
+                            <button className="save" onClick={() => saveActivity(activity._id)} disabled={isActivitySaved(activity._id)}>{isActivitySaved(activity._id) ? "saved" : "save"}</button>
+                            
+                            <button className="delete" onClick={() => deleteActivity(activity._id)}>delete</button>
+                            <button className="update">update</button>
                         </div>
                         <div>
-                            <p>{activity.description}</p>
+                            <p><span className="description">
+                                Description 
+                            </span> :{activity.description}</p>
                         </div>
                         <img src={activity.imageUrl}  alt={activity.name}/>
                         <p>Activity Time: {activity.activityTime} min</p>
+                       
                 </li>
                 
                 ))}

@@ -33,7 +33,7 @@ export default function SavedActivities() {
                     <li key={activity._id}>
                         <div>
                             <h2>{activity.name}</h2>
-                            <button>delete</button>
+                            <button className="delete">delete</button>
                             <button>update</button>
                         </div>
                         <div>
