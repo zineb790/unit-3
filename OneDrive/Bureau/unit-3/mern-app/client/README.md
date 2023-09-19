@@ -14,6 +14,13 @@ in the server side i am using express, jsonwebtoken ,mongoose , bycrypt and cors
 you can run and connect to mongoose by npm start .
 in the client side react, axios and react-router-dom are used to better serve the UI.
 
+### Unsolved Problems
+the app is still under development for the delete and update of the data.
+
+#### Future Enhancements
+
+working on the ability to add more options to the navbar and animation with css
+
 
 
 
