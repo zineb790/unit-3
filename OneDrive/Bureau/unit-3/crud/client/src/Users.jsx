@@ -26,36 +26,24 @@ function Users() {
       <h1>simple CRUD app</h1>
       <div className="create">
           <Link to="/create" >create</Link>
-        </div>
-    
-      <table >
-        {/* <thead >
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Age</th>
-              <th>Action</th>
-            </tr>
-          </thead> */}
-        <tbody className="parent">
-          
+      </div>
+        <div className="parent">
             {
             users.map((user, index) => {
               
-              return <tr key={index}  >
+              return <div key={index}  >
                  
-                  <td> {user.name}</td>
-                  <td> {user.email}</td>
-                  <td> Age: {user.age}</td>
-                  <td >
-                 
+                  <div> {user.name}</div>
+                  <div> {user.email}</div>
+                  <div> Age: {user.age}</div>
+                  <div>
                   <button className="update"><Link to={`/update/${user._id}`} >update</Link></button> 
                     <button className="delete" onClick={(e) =>handleDelete(user._id)}>Delete</button>
-                  </td>
-                </tr>
+                  </div>
+                </div>
               })}
-          </tbody>
-         </table>
+          </div>
+       
     </div>
      
     )
